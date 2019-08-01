@@ -1,0 +1,12 @@
+This python module can be used as a standalone to work simulate Baseband Signal Transmission.
+
+How it works :
+Theory:
+In Baseband communication we have a audio signal that we want to transmit by sampling it at 
+a constant time interval (T) . But if the noise power is much greater than the power that the
+baseband signal contains then it can distort the signal, thus increasing the error in sent information.
+
+What we do :
+We create a matched filter that in theory has a impulse response that looks like this: 
+K*g(T-t) where K is some constant that can be tuned , and T is the sampling Time Period.
+
