@@ -1,6 +1,6 @@
 # Digital Communication
 
-This repository is basically the whole implementation of Simon Haykin and our course that we have to study in 4th Semester and it goes by the name Digital Communication. The Course can be found here : 
+This repository is basically the whole implementation of Simon Haykin and our course that we have to study in 5th Semester and it goes by the name Digital Communication. The Course can be found here : 
 
 ## Getting Started
 
