@@ -6,9 +6,9 @@ import sys
 import BasebandWaveforms as BW
 import GaussianNoise as GN
 
-scaling_factor = 2
+# scaling_factor = 2
 
-def add_noise_to_functions():
+def add_noise_to_functions(scaling_factor):
     x_unit_step_vector, y_unit_step_vector = BW.BasebandWaveforms.pulse_function(BW.BasebandWaveforms(), 4001)
     y_noise_vector = GN.GaussianNoise.gaussian_white_noise(GN.GaussianNoise('Gaussian White Noise'), number_of_samples = 1000, scaling_factor = scaling_factor)
 
@@ -17,13 +17,13 @@ def add_noise_to_functions():
     return (x_unit_step_vector, resultant_waveform_y_values)
 
 
-def plotting_the_distorted_wave():
-    x_timestamps, y_values  = add_noise_to_functions()
+def plotting_the_distorted_wave(scaling_factor):
+    x_timestamps, y_values  = add_noise_to_functions(scaling_factor)
     plt.plot(x_timestamps, y_values)
-    plt.title('DISTORTED WAVE WITH POWER THAT IS {}00%'.format(300*scaling_factor))
+    plt.title('DISTORTED WAVE WITH NOISE POWER THAT IS {}00%'.format(300*scaling_factor))
     plt.xlabel('TimePeriod')
     plt.ylabel('Amplitude of the Distorted Wave')
     plt.show()
 
 if __name__ == "__main__":
-    plotting_the_distorted_wave()
+    plotting_the_distorted_wave(1.2)
