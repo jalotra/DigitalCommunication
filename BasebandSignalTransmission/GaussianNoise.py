@@ -62,7 +62,7 @@ if __name__ == "__main__":
         print("#################################################################################")
         WhiteNoiseObject.print_gaussian_white_noise_samples(number_of_samples, scaling_factor = 1)
     
-    plot()
+    print_samples()
     #print_samples()
 
 

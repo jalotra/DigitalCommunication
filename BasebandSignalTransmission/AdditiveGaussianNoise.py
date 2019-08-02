@@ -6,7 +6,7 @@ import sys
 import BasebandWaveforms as BW
 import GaussianNoise as GN
 
-scaling_factor = float(sys.argv[1])
+scaling_factor = 2
 
 def add_noise_to_functions():
     x_unit_step_vector, y_unit_step_vector = BW.BasebandWaveforms.pulse_function(BW.BasebandWaveforms(), 4001)
