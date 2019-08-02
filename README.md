@@ -62,5 +62,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Rajoo Pandey Sir for teaching so fabulously in the class.
-* Simon Haykin for  writing a wonderful Book.
+* Simon Haykin for writing a wonderful Book. 
+* Dharmanshu Saini for giving wonderful thoughts on subject in Library.
 * Jasmeet Singh Sobti for scribling whatever was taught in class on paper. 
