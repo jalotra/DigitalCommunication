@@ -1,13 +1,13 @@
 # Digital Communication
 
-This repository is basically the whole implementation of Simon Haykin and our course that we have to study in 5th Semester and it goes by the name Digital Communication. The Course can be found here : 
+This repository is basically the whole implementation of Simon Haykin and our course that we have to study in 5th Semester and it goes by the name Digital Communication. The Course can be found here : http://nitkkr.ac.in/docs/Annexure%202.pdf
 
 ## Getting Started
 
 Many of the electronics and communication students lack the power to replicate what is written in brilliant Books like Simon Haykin, thus we lack the required problem solving skills needed. And we get stuck if somebody asks us the change on output waveform as one changes some input parameters.
 If you are a electronics and communication student ask yourself **Did you apply the theory that you learnt in books like Simon Hayin, Populis For Random Variables etc**. 
 
-This project enables me to think of an algorithm, improve my technical skills, writing good pythonic code and finally learning scientific libraries.
+This project enables me to think of an algorithm, improve my technical skills, write good pythonic code and finally learning scientific libraries.
 
 ### Prerequisites
 
