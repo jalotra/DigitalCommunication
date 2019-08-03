@@ -7,7 +7,7 @@ This repository is basically the whole implementation of Simon Haykin and our co
 Many of the electronics and communication students lack the power to replicate what is written in brilliant Books like Simon Haykin, thus we lack the required problem solving skills needed. And we get stuck if somebody asks us the change on output waveform as one changes some input parameters.
 If you are a electronics and communication student ask yourself **Did you apply the theory that you learnt in books like Simon Hayin, Populis For Random Variables etc**. 
 
-This project enables me to think of an algorithm, improve my technical skills, write good pythonic code and finally learning scientific libraries.
+This project enables me to think of an algorithm, improve my technical skills, write good pythonic code and finally learn Python specific scientific libraries and plotters like scipy, numpy, seaborn etc. 
 
 ### Prerequisites
 
