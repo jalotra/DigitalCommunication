@@ -1,26 +1,61 @@
-import numpy
+import numpy 
 import matplotlib.pyplot as plt
 import sys
 
-# k = float(sys.argv[1])
+# What I have to do
+# To take in values from the AdditiveGaussianNoise script and also from MatchedFilterResponse
+# Next is to convolve both the vectors and to plot the covolved vector with timeStamps
 
-#My Modules
-import MatchedFilter as MF
-import AdditiveGaussianNoise as AGN
+from AdditiveGaussianNoise import add_noise_to_functions
+from MatchedFilter import MatchedFilterResponse 
+import BasebandWaveforms as BW
 
-impulse_response_matched_filter = MF.MatchedFilterResponse.impulse_response_filter(MF.MatchedFilterResponse(), 1)
-impulse_response_vector = impulse_response_matched_filter[1]
+class ConvolvedVector(object):
+
+    def __init__(self, author):
+        self.author = author
+
+    def getting_noisy_bandpass_signal(self, scaling_factor, decimal_number_to_send, time_period, standard_deviation, 
+    number_of_samples, duty_cycle, starting_time, ending_time):
+
+        noise_x_values, noise_y_values = add_noise_to_functions(scaling_factor, decimal_number_to_send, time_period, 
+        standard_deviation, number_of_samples, duty_cycle, starting_time, ending_time)
+
+        return noise_x_values, noise_y_values
+
+    def getting_matched_filter_response(self, K, duty_cycle, decimal_number_to_send, number_of_samples, time_period):
+        filter_x_values, filter_y_values = MatchedFilterResponse(time_period = time_period).impulse_response(K, duty_cycle, decimal_number_to_send, number_of_samples)
+
+        return filter_x_values, filter_y_values
+
+    def convolving_noise_and_filter_response(self, first_vector, second_vector):
+        convolved_vector = numpy.convolve(first_vector, second_vector)
+        return convolved_vector
 
 
-SCALING_FACTOR = 1.2
-noisy_signal_vector = AGN.add_noise_to_functions(SCALING_FACTOR)[1]
+if __name__ == "__main__":
+    OBJ = ConvolvedVector('Shivam Jalotra')
+    time_period = 10
+    decimal_number = 10
+    count = BW.BasebandWaveforms.decimal_to_binary(BW.BasebandWaveforms(time_period = time_period),decimal_number = decimal_number)[1]
 
-timestamps = impulse_response_matched_filter[0]
-# value_to_Add
-# for i in range(4001):
-# timestamps = 
+    noise_x_values, noise_y_values = OBJ.getting_noisy_bandpass_signal(scaling_factor = 1, decimal_number_to_send = decimal_number, time_period = time_period , standard_deviation = 7.0, 
+    number_of_samples = 200, duty_cycle = 100, starting_time = 0 , ending_time = count*time_period )
 
-convolved_vector = numpy.convolve(impulse_response_vector , noisy_signal_vector)
-plt.plot(timestamps, convolved_vector)
-plt.title('y(t) AFTER GETTING OUT FROM MATCHED FILTER RESPONSE\nDISTORTED WAVE WITH NOISE POWER THAT IS {}00%'.format(300*SCALING_FACTOR))
-plt.show()
+    filter_x_values, filter_y_values = OBJ.getting_matched_filter_response(K = 1, duty_cycle = 100, decimal_number_to_send = decimal_number, number_of_samples = 200, time_period = 10)
+
+    convolvedVector = OBJ.convolving_noise_and_filter_response(noise_y_values, filter_y_values)
+
+    step_size = noise_x_values[1] - noise_x_values[0]
+    noise_time_values = numpy.arange(0, count*time_period, step_size/2)
+    noise_time_values = noise_time_values[:-1]
+    
+
+    print(len(convolvedVector))
+    print(len(noise_time_values))
+    plt.plot(noise_time_values, convolvedVector)
+    plt.grid(color='black', linestyle='-', linewidth=.5)
+    plt.show()
+    
+
+    # print('{} \n {} \n {} \n {}\n'.format(len(noise_x_values), len(noise_y_values), len(filter_x_values), len(filter_y_values)))

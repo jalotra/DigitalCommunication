@@ -33,5 +33,8 @@ if __name__ == "__main__":
     time_period = 10
     decimal_number = 16
     count = BW.BasebandWaveforms.decimal_to_binary(BW.BasebandWaveforms(time_period = time_period),decimal_number = decimal_number)[1]
+#     print(count*time_period)
     plotting_the_distorted_wave(scaling_factor = 1, decimal_number_to_send = decimal_number, time_period = time_period , standard_deviation = 0.01, 
     number_of_samples = 200, duty_cycle = 50, starting_time = 0 , ending_time = count*time_period )
+    
+

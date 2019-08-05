@@ -55,7 +55,8 @@ class BasebandWaveforms(object):
             starting_time_period = self.time_period * i
             ending_time_period = self.time_period * (i+1)
             timeStamps.append(np.arange(starting_time_period,ending_time_period, (ending_time_period-starting_time_period)/number_of_samples))
-        print(np.dot(1,timeStamps).flatten())
+        # print(np.dot(1,timeStamps).flatten())
+        
         #print(len(np.dot(1, timeStamps).flatten()))
     
     
@@ -73,7 +74,7 @@ class BasebandWaveforms(object):
                     x += 1
                     
                 while(x < int(len(timeStamps[i]))):
-                    pulse_vector.append(0)
+                    pulse_vector.append(-1)
                     x += 1
             else:
                 for _ in timeStamps[i]:
@@ -81,9 +82,10 @@ class BasebandWaveforms(object):
                     
 #         print(pulse_vector)
 #         print(len(pulse_vector))
+
     
-    
-        return np.dot(1,timeStamps).flatten(), pulse_vector
+        # print(type(np.dot(1,timeStamps).flatten()))
+        return list(np.dot(1,timeStamps).flatten()), pulse_vector
 
 
     def plot_unit_step_function(self, number_of_samples):
@@ -108,7 +110,8 @@ class BasebandWaveforms(object):
                               Amplitude = self.pulse_function(duty_cycle, decimal_number_to_send, number_of_samples)[1]))
         g = sns.relplot(x= "TimeStamps", y= "Amplitude", kind="line", data= df)
         plt.grid(color='black', linestyle='-', linewidth=.5)
-        plt.title('ORIGINAL SIGNAL THAT HAS TO BE TRANSMITTED REPRESENTING {} IN BINARY'.format(decimal_number_to_send))
+        # plt.title('ORIGINAL SIGNAL THAT HAS TO BE TRANSMITTED REPRESENTING {} IN BINARY'.format(decimal_number_to_send))
+        df.head()
         plt.show(g)
        
 
