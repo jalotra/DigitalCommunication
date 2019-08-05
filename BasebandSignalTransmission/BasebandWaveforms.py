@@ -37,19 +37,21 @@ class BasebandWaveforms(object):
         binary = bin(decimal_number)
         binary = binary[2:]
         binary_list = []
+        count = 0
         for binary_info in binary:
+            count += 1 
             binary_list.append(int(binary_info))
-        return binary_list
+        return binary_list, count
             
         
 
     def pulse_function(self, duty_cycle, decimal_number_to_send, number_of_samples):
-        binary_list = self.decimal_to_binary(decimal_number_to_send)
+        binary_list = self.decimal_to_binary(decimal_number_to_send)[0]
         
         
         # Works fine
         timeStamps = []
-        for i, elements in enumerate(binary_list):
+        for i, _ in enumerate(binary_list):
             starting_time_period = self.time_period * i
             ending_time_period = self.time_period * (i+1)
             timeStamps.append(np.arange(starting_time_period,ending_time_period, (ending_time_period-starting_time_period)/number_of_samples))
@@ -106,6 +108,7 @@ class BasebandWaveforms(object):
                               Amplitude = self.pulse_function(duty_cycle, decimal_number_to_send, number_of_samples)[1]))
         g = sns.relplot(x= "TimeStamps", y= "Amplitude", kind="line", data= df)
         plt.grid(color='black', linestyle='-', linewidth=.5)
+        plt.title('ORIGINAL SIGNAL THAT HAS TO BE TRANSMITTED REPRESENTING {} IN BINARY'.format(decimal_number_to_send))
         plt.show(g)
        
 

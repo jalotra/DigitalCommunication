@@ -11,7 +11,7 @@ import GaussianNoise as GN
 def add_noise_to_functions(scaling_factor, decimal_number_to_send, time_period, standard_deviation, number_of_samples, duty_cycle, starting_time, ending_time):
     timeStamps_pulse_vector, value_pulse_vector = BW.BasebandWaveforms.pulse_function(BW.BasebandWaveforms(time_period), duty_cycle, decimal_number_to_send, number_of_samples)
     y_noise_vector = GN.GaussianNoise.gaussian_white_noise(GN.GaussianNoise(standard_deviation, starting_time, ending_time, time_period) ,
-    number_of_samples, scaling_factor )
+    number_of_samples, scaling_factor)[0]
 
     resultant_waveform_y_values = numpy.add(value_pulse_vector, y_noise_vector)
 

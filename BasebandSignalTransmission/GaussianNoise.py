@@ -1,8 +1,8 @@
 '''
     This class contains code to implement the different types of noises that we encounter
-    while learning Digital COmmunication.
+    while learning Digital Communication.
 '''
-# Works fine
+# Works only with integral values of starting_time, ending_time and time_period
 # Learn why does samples taken from gaussian function consitutes a white_noise.
 # Next I HAVE TO IMPLEMENT A WAY TO CALCULATE THE POWER SPECTRAL DENSITY OF THE WHITE_NOISE 
 # FROM SAMPLES TAKEN BY THE white_noise function   
@@ -30,12 +30,13 @@ class GaussianNoise(object):
         for _ in range (int((self.ending_time - self.starting_time)/self.time_period)):
             samples.append(np.random.normal(loc = 0, scale = self.standard_deviation, size = number_of_samples))
   
-        samples = np.append(np.dot(scaling_factor, samples).flatten() ,np.random.normal(loc = 0, scale =                 self.standard_deviation))
-        return samples
+        return (np.dot(scaling_factor,samples).flatten() ,np.append(np.dot(scaling_factor, samples).flatten() ,
+        np.random.normal(loc = 0, scale = self.standard_deviation))
+)
         
     # SAMPLES ARE OF THE TYPE np.ndarray
     def print_gaussian_white_noise_samples(self, number_of_samples, scaling_factor):
-        samples = self.gaussian_white_noise(number_of_samples, scaling_factor)
+        samples = self.gaussian_white_noise(number_of_samples, scaling_factor)[1]
         print(len(samples))
         print(samples) 
         
@@ -61,17 +62,18 @@ class GaussianNoise(object):
 
     def seaborn_plot_gaussian(self, number_of_samples, scaling_factor):
         df = pd.DataFrame(dict(TimeStamps = self.sampling_frequency(number_of_samples),
-            NoiseAmplitude = self.gaussian_white_noise(number_of_samples, scaling_factor)))
+            NoiseAmplitude = self.gaussian_white_noise(number_of_samples, scaling_factor)[1]))
         g = sns.relplot(x= "TimeStamps", y= "NoiseAmplitude", kind="line", data= df)
         plt.grid(color='black', linestyle='-', linewidth=.5)
+        plt.title('GAUSSIAN WHITE NOISE WITH S.D = {0:.2f}'.format(scaling_factor*self.standard_deviation/3, '.2f'))
         plt.show(g)
 
 
 if __name__ == "__main__":
-    NoiseObject = GaussianNoise(standard_deviation = 1 , starting_time = -1000, ending_time = 1000, time_period = 100)
+    NoiseObject = GaussianNoise(standard_deviation = 1, starting_time = -100, ending_time = 100, time_period = 2)
 #     print(len(NoiseObject.gaussian_white_noise(number_of_samples = 100,scaling_factor = 1)))
 #     print(len(NoiseObject.sampling_frequency(number_of_samples = 100)))
-    NoiseObject.seaborn_plot_gaussian(number_of_samples = 100, scaling_factor = 1)
+    NoiseObject.seaborn_plot_gaussian(number_of_samples = 2, scaling_factor = 1)
 
 
 
