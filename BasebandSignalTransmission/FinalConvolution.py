@@ -36,13 +36,14 @@ class ConvolvedVector(object):
 if __name__ == "__main__":
     OBJ = ConvolvedVector('Shivam Jalotra')
     time_period = 10
-    decimal_number = 10
+    decimal_number = 2
+    duty_cycle = 100
     count = BW.BasebandWaveforms.decimal_to_binary(BW.BasebandWaveforms(time_period = time_period),decimal_number = decimal_number)[1]
 
-    noise_x_values, noise_y_values = OBJ.getting_noisy_bandpass_signal(scaling_factor = 1, decimal_number_to_send = decimal_number, time_period = time_period , standard_deviation = 7.0, 
-    number_of_samples = 200, duty_cycle = 100, starting_time = 0 , ending_time = count*time_period )
+    noise_x_values, noise_y_values = OBJ.getting_noisy_bandpass_signal(scaling_factor = 1, decimal_number_to_send = decimal_number, time_period = time_period , standard_deviation = 5, 
+    number_of_samples = 200, duty_cycle = duty_cycle, starting_time = 0 , ending_time = count*time_period )
 
-    filter_x_values, filter_y_values = OBJ.getting_matched_filter_response(K = 1, duty_cycle = 100, decimal_number_to_send = decimal_number, number_of_samples = 200, time_period = 10)
+    filter_x_values, filter_y_values = OBJ.getting_matched_filter_response(K = 1, duty_cycle = duty_cycle, decimal_number_to_send = decimal_number, number_of_samples = 200, time_period = 10)
 
     convolvedVector = OBJ.convolving_noise_and_filter_response(noise_y_values, filter_y_values)
 
