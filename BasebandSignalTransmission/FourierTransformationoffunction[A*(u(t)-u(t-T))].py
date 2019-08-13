@@ -20,31 +20,68 @@ def delta_function(w):
 
 
 
-def function_definer(A, w, T):
-    return np.imag((A*(1-(np.exp(-1j*w*T))*(np.pi*delta_function(w) + (1/1j*w)))))
+def imag_part_function_definer(A, w, T):
+    return np.imag((A*(1-(np.exp(-1j*w*T))*(np.pi*delta_function(w) + (1/(1j*w))))))
+
+def real_part_function_definer(A, w, T):
+    return np.real((A*(1-(np.exp(-1j*w*T))*(np.pi*delta_function(w) + (1/(1j*w))))))
 
 
-def fourier_transform(low_frequency_range , high_frequency_range, T):
+def imag_fourier_transform(low_frequency_range , high_frequency_range, T):
     pi = np.pi
     low_angular_frequency_range = 2*pi*low_frequency_range
     high_angular_frequency_range = 2*pi*high_frequency_range
 
     frequency_timestamps = np.linspace(low_angular_frequency_range, high_angular_frequency_range, 10000).flatten()
 
-    y_values = [function_definer(A = 10, w= w, T= T) for w in frequency_timestamps ]
+    y_values = [imag_part_function_definer(A = 10, w= w, T= T) for w in frequency_timestamps ]
 
     return (frequency_timestamps, y_values)
 
-def plotter():
-    plt.plot(fourier_transform(-10e+8,10e+8, 1)[0], fourier_transform(-10e+8, 10e+8, 1)[1])
+def real_fourier_transform(low_frequency_range , high_frequency_range, T):
+    pi = np.pi
+    low_angular_frequency_range = 2*pi*low_frequency_range
+    high_angular_frequency_range = 2*pi*high_frequency_range
+
+    frequency_timestamps = np.linspace(low_angular_frequency_range, high_angular_frequency_range, 10000).flatten()
+
+    y_values = [real_part_function_definer(A = 10, w= w, T= T) for w in frequency_timestamps ]
+
+    return (frequency_timestamps, y_values)
+
+def imag_plotter():
+    plt.plot(imag_fourier_transform(-10e+8,10e+8, 1)[0], imag_fourier_transform(-10e+8, 10e+8, 1)[1])
     plt.grid()
-    plt.show()
+    plt.xlabel('VALUES OF FREQUENCY')
+    plt.ylabel('IMAGINARY PART')
 
 
+def real_plotter():
+    plt.plot(real_fourier_transform(-10e+8,10e+8, 1)[0], real_fourier_transform(-10e+8, 10e+8, 1)[1])
+    plt.grid()
+    plt.xlabel('VALUES OF FREQUENCY')
+    plt.ylabel('REAL PART')
+    
+    
 
 if __name__ == "__main__":
-    # print(fourier_transform(-100, 100, 1))
-    plotter()
+   # Plotting both the real and imaginary parts with sub-plots on the same plot
+    
+
+    fig, (ax1, ax2) = plt.subplots(2, 1)
+    ax1.plot(imag_fourier_transform(-10e+8,10e+8, 1)[0], imag_fourier_transform(-10e+8, 10e+8, 10e+3)[1])
+    ax1.set_xlabel('VALUES OF FREQUENCY')
+    ax1.set_ylabel('IMAGINARY PART')
+    ax1.grid()
+
+    ax2.plot(real_fourier_transform(-10e+8,10e+8, 1)[0], real_fourier_transform(-10e+8, 10e+8, 10e+3)[1])
+    ax2.set_xlabel('VALUES OF FREQUENCY')
+    ax2.set_ylabel('REAL PART')
+    ax2.grid()
+    
+    plt.show()
+
+    
 
 
 
